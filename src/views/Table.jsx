@@ -50,7 +50,7 @@ const Table = () => {
                 </th>
               </tr>
             </thead>
-            <Tbody loadTask={tasks} />
+            <Tbody  onAddTask={handleAddTask} loadTask={tasks} />
           </table>
         </div>
       </div>
@@ -74,7 +74,7 @@ const Table = () => {
               </th>
             </tr>
           </thead>
-          <Tbody loadTask={tasks} key={tasks.id} />
+          <Tbody  onUpdateTask={handleAddTask} loadTask={tasks} key={tasks.id} />
         </table>
       </div>
     </div>
