@@ -1,6 +1,7 @@
 import Form from "../component/Form";
 import Tbody from "../component/Tbody";
 import { useState, useEffect, useCallback } from "react";
+import Button from "../component/Button";
 const Table = () => {
   const thStyle = "px-6 py-3";
   const [loading, setLoading] = useState(true);
@@ -35,7 +36,9 @@ const Table = () => {
   if (loading) {
     return (
       <div className="w-5/6 mt-16 mx-10">
-        <Form onAddTask={handleAddTask} />
+        <div className="flex justify-end mx-10">
+          <Button text="Add" onUpdateTask={handleAddTask} />
+        </div>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-3 mx-10">
           <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -50,7 +53,7 @@ const Table = () => {
                 </th>
               </tr>
             </thead>
-            <Tbody  onAddTask={handleAddTask} loadTask={tasks} />
+            <Tbody onUpdateTask={handleAddTask} loadTask={tasks} key={tasks.id} />
           </table>
         </div>
       </div>
@@ -59,7 +62,9 @@ const Table = () => {
 
   return (
     <div className="w-5/6 mt-16 mx-10">
-      <Form onAddTask={handleAddTask} />
+      <div className="flex justify-end mx-10">
+        <Button text="Add" onUpdateTask={handleAddTask} />
+      </div>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-3 mx-10">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -74,7 +79,7 @@ const Table = () => {
               </th>
             </tr>
           </thead>
-          <Tbody  onUpdateTask={handleAddTask} loadTask={tasks} key={tasks.id} />
+          <Tbody onUpdateTask={handleAddTask} loadTask={tasks} key={tasks.id} />
         </table>
       </div>
     </div>

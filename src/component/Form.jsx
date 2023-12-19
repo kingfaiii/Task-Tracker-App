@@ -1,12 +1,22 @@
 import { useRef, useState } from "react";
-
+import Modal from "./Modal";
 const Form = (props) => {
   const taskName = useRef();
+  const taskpriority = useRef();
+  const taskcategory = useRef();
+  const taskStatus = useRef();
   function submitHandler(e) {
     e.preventDefault();
     const enteredTask = taskName.current.value;
+    const enteredPrio = taskpriority.current.value;
+    const enteredCate = taskcategory.current.value;
+    const enteredStatus = taskStatus.current.value;
+
     const taskData = {
       task: enteredTask,
+      priority: enteredPrio,
+      category: enteredCate,
+      status: enteredStatus,
     };
     fetch("https://task-tracker-app-72a25-default-rtdb.firebaseio.com/tasks.json", {
       method: "POST",
@@ -21,14 +31,26 @@ const Form = (props) => {
     });
   }
   return (
-    <form className="mt-15 mx-10" onSubmit={submitHandler}>
-      <div className="flex justify-end">
-        <input type="text" name="task" id="task" placeholder="Add a Task" className="border-y-cyan-600 border outline-none border-l-cyan-600 p-3" rquired="true" ref={taskName} />
-        <button className="text-white bg-cyan-600 px-6 py-3  hover:bg-cyan-400 transition-all" type="submit">
-          Add
+    <Modal>
+      <form onSubmit={submitHandler}>
+        <p className="mb-6 text-lg font-bold text-center">Add Task Tracker</p>
+        <input type="text" name="taskName" className="w-full focus:outline-none border-b-cyan-400 border-b my-5" id="taskName" placeholder="Task Name" ref={taskName} />
+        <select name="taskPriority" className="w-full focus:outline-none border-b-cyan-400 border-b my-5" id="taskPriority" ref={taskpriority}>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+        </select>
+        <input type="text" name="taskCategory" className="w-full focus:outline-none border-b-cyan-400 border-b my-5" id="taskCategory" placeholder="Category" ref={taskcategory} />
+        <select name="taskStatus" className="w-full focus:outline-none border-b-cyan-400 border-b my-5" id="taskStatus" ref={taskStatus}>
+          <option value="Completed">Completed</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Not Started">Not Started</option>
+        </select>
+        <button type="submit" className="bg-cyan-600 text-white py-2 px-6 mt-5">
+          Add Task
         </button>
-      </div>
-    </form>
+      </form>
+    </Modal>
   );
 };
 
